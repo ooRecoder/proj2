@@ -1,0 +1,17 @@
+Tabela roles (Armazena informações referente a cargos)
+
+CREATE TABLE roles (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(50) UNIQUE NOT NULL
+);
+
+Tabela users (Armazena informações referente a usuários para login)
+
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    provider VARCHAR(50),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    role_id INTEGER REFERENCES roles(id)
+);
