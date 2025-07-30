@@ -1,5 +1,6 @@
 const generatePin = require('../utils/generatePIN');
 
+// A melhor abordagem seria utilizando Radis
 const verificationCache = new Map();
 
 function saveVerification(email) {

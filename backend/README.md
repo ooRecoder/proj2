@@ -5,3 +5,5 @@ Token: jsonwebtoken
 Criptografia: bcrypt
 Segurança: helmet, cors, dotenv
 Email: nodemailer
+
+Cache: ioredis (Ainda não implementado, vou estudar)
