@@ -2,16 +2,16 @@ require('dotenv').config();
 const jwt = require('jsonwebtoken');
 
 function authMiddleware(req, res, next) {
-    const token = req.headers.authorization?.split(' ')[1];
-    if (!token) return res.sendStatus(401);
+  const token = req.cookies?.token; // pega o token do cookie 'token'
+  if (!token) return res.sendStatus(401); // não autorizado
 
-    try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        req.user = decoded; // Ex: { id: 123 }
-        next();
-    } catch {
-        return res.sendStatus(403);
-    }
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded; // ex: { id: 123 }
+    next();
+  } catch (err) {
+    return res.sendStatus(403); // token inválido ou expirado
+  }
 }
 
-module.exports = authMiddleware
+module.exports = authMiddleware;

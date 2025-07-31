@@ -1,12 +1,20 @@
 require('dotenv').config();
-const errorHandler = require('./middlewares/errorHandler')
+const cors = require('cors');
 const helmet = require('helmet');
 const express = require('express');
 const { sequelize } = require('./models');
+
+const errorHandler = require('./middlewares/errorHandler')
 const userRoutes = require('./routes/userRoutes');
 const authRoutes = require('./routes/authRoutes')
 
 const app = express();
+app.use(cors(
+  {
+    origin: 'http://localhost:3000',
+    credentials: true,
+  }
+));
 app.use(helmet());
 app.use(express.json());
 

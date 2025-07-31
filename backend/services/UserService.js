@@ -14,4 +14,12 @@ async function authenticate(email, password) {
   return match ? user : null;
 }
 
-module.exports = { register, authenticate };
+async function deleteById(userId) {
+  const user = await User.findByPk(userId);
+  if (!user) return false;
+
+  await user.destroy();
+  return true;
+}
+
+module.exports = { register, authenticate, deleteById };

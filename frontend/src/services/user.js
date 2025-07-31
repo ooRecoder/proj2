@@ -1,1 +1,0 @@
-// Requisições/funções referentes as informações do usuário
