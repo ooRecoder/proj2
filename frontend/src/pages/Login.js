@@ -1,97 +1,37 @@
-import { useState } from "react";
-import UserService from "../services/UserServices";
-import { useNavigate } from "react-router-dom"; // Se estiver usando React Router
+import { useLogin } from "../hooks/useLogin";
+import styles from "../styles/login.module.css";
 
 function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const navigate = useNavigate(); // Navegação após login
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
-
-    try {
-      const response = await UserService.login({ email, password });
-
-      if (response.status === 200) {
-        // O cookie já está no navegador via Set-Cookie
-        navigate("/pagina_inicial"); // Redireciona para a página protegida
-      }
-    } catch (err) {
-      if (err.response?.status === 401) {
-        setError("E-mail ou senha inválidos.");
-      } else {
-        setError("Erro ao realizar login.");
-      }
-    }
-  };
+  const { email, setEmail, password, setPassword, handleLogin } = useLogin();
 
   return (
-    <div style={styles.container}>
-      <h1 style={styles.title}>Login</h1>
-      <form onSubmit={handleSubmit} style={styles.form}>
+    <div className={styles.container}>
+      <h1 className={styles.title}>Login</h1>
+      <form onSubmit={handleLogin} className={styles.form}>
+        <label htmlFor="email" className={styles.label}>E-mail</label>
         <input
+          id="email"
           type="email"
-          placeholder="E-mail"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          style={styles.input}
+          className={styles.input}
+          placeholder="Digite seu e-mail"
         />
+        <label htmlFor="password" className={styles.label}>Senha</label>
         <input
+          id="password"
           type="password"
-          placeholder="Senha"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
-          style={styles.input}
+          className={styles.input}
+          placeholder="Digite sua senha"
         />
-        {error && <p style={styles.error}>{error}</p>}
-        <button type="submit" style={styles.button}>Entrar</button>
+        <button type="submit" className={styles.button}>Entrar</button>
       </form>
     </div>
   );
 }
-
-const styles = {
-  container: {
-    maxWidth: "400px",
-    margin: "60px auto",
-    padding: "30px",
-    backgroundColor: "#f1f1f1",
-    borderRadius: "8px",
-    boxShadow: "0 0 10px rgba(0,0,0,0.1)"
-  },
-  title: {
-    textAlign: "center",
-    marginBottom: "20px"
-  },
-  form: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "15px"
-  },
-  input: {
-    padding: "10px",
-    fontSize: "16px",
-    borderRadius: "4px",
-    border: "1px solid #ccc"
-  },
-  button: {
-    padding: "12px",
-    backgroundColor: "#007bff",
-    color: "#fff",
-    border: "none",
-    borderRadius: "4px",
-    cursor: "pointer"
-  },
-  error: {
-    color: "red",
-    textAlign: "center",
-    marginTop: "-10px"
-  }
-};
 
 export default Login;

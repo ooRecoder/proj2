@@ -1,6 +1,7 @@
 # proj2
 npx create-react-app frontend
-npm install axios react-router-dom
+npm install axios react-router-dom react-toastify
+
 cd frontend
 
 
