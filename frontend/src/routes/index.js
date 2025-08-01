@@ -12,7 +12,7 @@ function AppRoutes() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Routes>
-      <ToastContainer />
+      <ToastContainer position="top-center" />
     </BrowserRouter>
   );
 }

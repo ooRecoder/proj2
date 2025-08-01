@@ -1,92 +1,52 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import UserService from '../services/UserServices';
+import styles from '../styles/register.module.css';
+
+import useRegisterForm from '../hooks/useRegisterForm';
+import EmailStep from '../components/Register/Step1/EmailStepRegister';
+import PinStep from '../components/Register/Step2/PinStepRegister';
+import StepIndicator from '../components/StepIndicator/Component';
 
 const Register = () => {
-  const navigate = useNavigate();
-
-  const [step, setStep] = useState(1); // 1 = enviar email, 2 = completar cadastro
-  const [email, setEmail] = useState('');
-  const [pin, setPin] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [message, setMessage] = useState(null);
-  const [error, setError] = useState(null);
-
-  const handleSendEmail = async () => {
-    try {
-      setError(null);
-      await UserService.verifyEmail(email)
-      setMessage('Código enviado para seu e-mail.');
-      setStep(2);
-    } catch (err) {
-      setError(err.response?.data?.errors?.[0] || 'Erro ao enviar código.');
-    }
-  };
-
-  const handleRegister = async () => {
-    if (password !== confirmPassword) {
-      return setError('As senhas não coincidem.');
-    }
-
-    try {
-      setError(null);
-      await UserService.register({ email, password, pin });
-      navigate('/login');
-    } catch (err) {
-      setError(err.response?.data?.error || 'Erro ao registrar.');
-    }
-  };
+  const {
+    step,
+    email,
+    setEmail,
+    pin,
+    setPin,
+    password,
+    setPassword,
+    confirmPassword,
+    setConfirmPassword,
+    loading,
+    sendVerificationCode,
+    submitRegistration,
+    loadingPIN
+  } = useRegisterForm();
 
   return (
-    <div style={{ maxWidth: 400, margin: '0 auto', padding: 20 }}>
-      <h2>Cadastro</h2>
+    <section className={styles['register-container']}>
 
-      {message && <p style={{ color: 'green' }}>{message}</p>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-
-      <label>Email:</label>
-      <input
-        type="email"
-        value={email}
-        onChange={e => setEmail(e.target.value)}
-        required
-      />
-
+      <h2 className={styles.title}>Cadastro</h2>
+      <div className={styles['progress-container']}>
+        <StepIndicator currentStep={step} />
+      </div>
       {step === 1 && (
-        <button onClick={handleSendEmail}>Enviar código</button>
+        <EmailStep email={email} setEmail={setEmail} onSendEmail={sendVerificationCode} loading={loadingPIN} />
       )}
-
       {step === 2 && (
-        <>
-          <label>Código PIN:</label>
-          <input
-            type="text"
-            value={pin}
-            onChange={e => setPin(e.target.value)}
-            required
-          />
-
-          <label>Senha:</label>
-          <input
-            type="password"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-            required
-          />
-
-          <label>Confirmar senha:</label>
-          <input
-            type="password"
-            value={confirmPassword}
-            onChange={e => setConfirmPassword(e.target.value)}
-            required
-          />
-
-          <button onClick={handleRegister}>Registrar</button>
-        </>
+        <PinStep
+          pin={pin}
+          setPin={setPin}
+          password={password}
+          setPassword={setPassword}
+          confirmPassword={confirmPassword}
+          setConfirmPassword={setConfirmPassword}
+          onRegister={submitRegistration}
+          loadingPIN={loadingPIN}
+          loading={loading}
+          sendPINAgain={sendVerificationCode}
+        />
       )}
-    </div>
+    </section>
   );
 };
 
