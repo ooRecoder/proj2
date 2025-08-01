@@ -1,24 +1,21 @@
+import styles from './style.module.css';
+
 const StepIndicator = ({ currentStep }) => {
   const steps = ['Email', 'Verificação'];
 
   return (
-    <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem' }}>
+    <div className={styles.container}>
       {steps.map((label, index) => {
-        const isActive = currentStep === index + 1;
-        const isCompleted = currentStep > index + 1;
+        const stepNumber = index + 1;
+        const stepClass =
+          currentStep === stepNumber
+            ? styles.active
+            : currentStep > stepNumber
+            ? styles.completed
+            : styles.inactive;
 
         return (
-          <div
-            key={label}
-            style={{
-              padding: '8px 12px',
-              borderRadius: '999px',
-              backgroundColor: isActive ? '#007bff' : isCompleted ? '#28a745' : '#e0e0e0',
-              color: isActive || isCompleted ? '#fff' : '#333',
-              fontWeight: 'bold',
-              transition: 'all 0.3s',
-            }}
-          >
+          <div key={label} className={`${styles.step} ${stepClass}`}>
             {label}
           </div>
         );
