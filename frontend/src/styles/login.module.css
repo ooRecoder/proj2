@@ -11,11 +11,6 @@
   --transition-speed: 0.3s;
 }
 
-* {
-  box-sizing: border-box;
-  font-family: 'Inter', sans-serif;
-}
-
 .container {
   display: flex;
   flex-direction: column;
@@ -91,10 +86,6 @@
 .button:hover {
   background-color: var(--primary-hover);
   transform: scale(1.02);
-}
-
-body {
-    margin: 0px;
 }
 
 @keyframes fadeIn {

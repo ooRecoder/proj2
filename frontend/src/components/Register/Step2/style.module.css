@@ -1,0 +1,113 @@
+/* pinStep.module.css */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+  color: #e4e4e4;
+}
+
+/* Estilo padrão para inputs (senha e confirmar senha) */
+.input {
+  padding: 0.65rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #3b3b5a;
+  background-color: #262636;
+  color: #f0f0f0;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #4f46e5;
+}
+
+/* Estilo especial para o input do PIN */
+.inputPin {
+  padding: 0.75rem 1.25rem;
+  border-radius: 12px;
+  border: 2px solid #ef4444; /* Vermelho vivo para destaque */
+  background-color: #3b3b5a; /* Fundo um pouco mais claro */
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.1rem;
+  letter-spacing: 0.2em;
+  text-align: center;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.inputPin:focus {
+  outline: none;
+  border-color: #f87171; /* Tom mais claro de vermelho */
+  background-color: #4b4b6a;
+}
+
+.errorMessage {
+  margin-top: 0.3rem;
+  color: #f87171;
+  font-size: 0.875rem;
+}
+
+.button {
+  padding: 0.75rem 1.5rem;
+  background-color: #4f46e5;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover:not(:disabled) {
+  background-color: #4338ca;
+}
+
+.button:disabled {
+  background-color: #3b3b5a;
+  cursor: not-allowed;
+}
+
+.resendContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: -0.5rem;
+  font-size: 0.9rem;
+}
+
+.resendText {
+  color: #cfcfcf;
+}
+
+.resendButton {
+  background: none;
+  border: none;
+  color: #60a5fa; /* azul claro */
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+}
+
+.resendButton:hover:not(:disabled) {
+  color: #3b82f6;
+}
+
+.resendButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  text-decoration: none;
+}

@@ -1,0 +1,26 @@
+.container {
+  display: flex;
+  gap: 1rem;
+}
+
+.step {
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.inactive {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+.active {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.completed {
+  background-color: #28a745;
+  color: #fff;
+}
